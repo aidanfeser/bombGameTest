@@ -14,6 +14,9 @@ public class PlayerCharacter : MonoBehaviour
     SuicideScript suicideScript;
     FuzeScript Fuze;
     public bool FinLevel = false;
+    public bool jump;
+    public Animator animator;
+    public bool touchingGround;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
@@ -22,22 +25,40 @@ public class PlayerCharacter : MonoBehaviour
     private void Start()
     {
         suicideScript = GetComponent<SuicideScript>();
+        animator = GetComponent<Animator>();
         Fuze = GetComponent<FuzeScript>();
     }
     void Update()
     {
         if(suicideScript.exploded == false)
         {
+            animator.SetBool("Explode?", false);
             horzontal = Input.GetAxisRaw("Horizontal");
-
+            if(horzontal == 0)
+            {
+                animator.SetBool("Moving?", false);
+            }
+            if (horzontal > 0)
+            {
+                animator.SetBool("Moving?", true);
+            }
+            if (horzontal < 0)
+            {
+                animator.SetBool("Moving?", true);
+            }
             if (Input.GetButtonDown("Jump") && IsGrounded())
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+                animator.SetBool("Jumping", true);
             }
-
+            if (IsGrounded())
+            {
+                animator.SetBool("Jumping", false);
+            }
             if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
             {
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+                
             }
             flip();
         }
@@ -45,6 +66,7 @@ public class PlayerCharacter : MonoBehaviour
         if(suicideScript.exploded == true)
         {
             speed = 0;
+            animator.SetBool("Explode?", true);
         }
         else
         {
@@ -80,9 +102,10 @@ public class PlayerCharacter : MonoBehaviour
             FinLevel = true;
         }
     }
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        
     }
 
     private void flip()
