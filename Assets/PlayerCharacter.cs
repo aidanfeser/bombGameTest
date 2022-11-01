@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 public class PlayerCharacter : MonoBehaviour
 {
     private float horzontal;
-    public float speed = 8f;
-    public float jumpingPower = 16f;
+    public float speed;
+    public float jumpingPower;
     public bool isFacingRight = true;
     SuicideScript suicideScript;
     FuzeScript Fuze;

@@ -13,21 +13,39 @@ public class FuzeScript : MonoBehaviour
     SuicideScript suicideScript;
     public int FuzeLives = 4;
     public bool RanoutOfTime = false;
-
+    public GameObject goPanal;
     public Image fuze1;
     public Image fuze2;
     public Image fuze3;
 
+    public bool GameOver;
+    PlayerCharacter character;
+
     private void Start()
     {
         suicideScript = GetComponent<SuicideScript>();
+        character = GetComponent<PlayerCharacter>();
     }
+   
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Start")
         {
-            startFuzeTimer = true;
+            if(startFuzeTimer == true)
+            {
+                return;
+            }
+            else
+            {
+                startFuzeTimer = true;
+            }
+            
             FuzeTimer = StartFuze;
+        }
+        if (collision.tag == "Water")
+        {
+            FuzeTimer = 10f;
+            
         }
     }
     
@@ -73,6 +91,9 @@ public class FuzeScript : MonoBehaviour
         if(FuzeLives <= 0)
         {
             Debug.Log("GAMEOVER");
+            goPanal.SetActive(true);
+            character.speed = 0f;
+            GameOver = true;
         }
     }
     

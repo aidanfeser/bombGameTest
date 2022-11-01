@@ -15,7 +15,7 @@ public class SpikeScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if(collision.tag == "PlayerHitBox")
         {
             Debug.Log("hitspike");
             FuzeScript.FuzeLives--;

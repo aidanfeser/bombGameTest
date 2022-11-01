@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SuicideScript : MonoBehaviour
 {
@@ -14,17 +15,35 @@ public class SuicideScript : MonoBehaviour
     public bool StartTimer;
     public bool exploded = false;
     FuzeScript fuze;
+
+    PlayerCharacter PlayerCharacter;
      void Start()
     {
         fuze = GetComponent<FuzeScript>();
+        PlayerCharacter = GetComponent<PlayerCharacter>();
         respawnPoint = transform.position;
         currentTime = startingTime;
     }
 
     void Update()
     {
-        
-        
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if(fuze.GameOver == false)
+            {
+                Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
+            }
+            else
+            {
+                fuze.GameOver = false;
+                Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
+                fuze.goPanal.SetActive (false);
+                PlayerCharacter.speed = 1.8f;
+            }
+            
+           
+        }
         if (Input.GetKeyDown(KeyCode.R))
         {
             if(exploded == false)

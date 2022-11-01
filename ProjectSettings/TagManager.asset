@@ -10,6 +10,8 @@ TagManager:
   - Door
   - Spikes
   - PlayerHitBox
+  - Water
+  - CheckPoint
   layers:
   - Default
   - TransparentFX
