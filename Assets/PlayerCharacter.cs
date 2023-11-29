@@ -5,6 +5,7 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class PlayerCharacter : MonoBehaviour
 {
     private float horzontal;
@@ -17,16 +18,19 @@ public class PlayerCharacter : MonoBehaviour
     public bool jump;
     public Animator animator;
     public bool touchingGround;
+    string currentSceneName;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
-    private void Start()
+     void Start()
     {
         suicideScript = GetComponent<SuicideScript>();
         animator = GetComponent<Animator>();
         Fuze = GetComponent<FuzeScript>();
+        currentSceneName = SceneManager.GetActiveScene().name;
+         
     }
     void Update()
     {
@@ -90,7 +94,17 @@ public class PlayerCharacter : MonoBehaviour
         {
             Debug.Log("level complete");
             Fuze.startFuzeTimer = false;
-            SceneManager.LoadScene("Level 1");
+            if (currentSceneName == "SampleScene")
+            {
+                SceneManager.LoadScene("Level 1");
+            }
+            else if (currentSceneName == "Level 1")
+            {
+                SceneManager.LoadScene("Level 2");
+            }
+                
+            
+            
         }
         
     }
