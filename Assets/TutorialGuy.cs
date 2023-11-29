@@ -52,7 +52,7 @@ public class TutorialGuy : MonoBehaviour
             }
             else if (contactStateIndex == 2)
             {
-                StartCoroutine(AppearText("Seems to be a path that is blocking you. Well, good thing you are a BOMB, hey? Try pressing (R) to remove it. But be aware you will lose one of your fuzes."));
+                StartCoroutine(AppearText("Seems to be a path that is blocking you. Well, good thing you are a BOMB, hey? Try pressing (R) (Next To The Wall) to remove it. But be aware you will lose one of your fuzes."));
                 TutGuy1.SetActive(true);
                 PauseTime();
                 textApperanceDuration = 4.0f;
