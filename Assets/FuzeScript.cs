@@ -18,6 +18,9 @@ public class FuzeScript : MonoBehaviour
     public Image fuze2;
     public Image fuze3;
 
+    public CameraShake cameraShake;
+    public float shakeDurationOnDeath = 0.5f;
+
     public bool GameOver;
     PlayerCharacter character;
 
@@ -25,6 +28,7 @@ public class FuzeScript : MonoBehaviour
     {
         suicideScript = GetComponent<SuicideScript>();
         character = GetComponent<PlayerCharacter>();
+        cameraShake = GetComponent<CameraShake>();
     }
    
     private void OnTriggerEnter2D(Collider2D collision)
@@ -72,7 +76,7 @@ public class FuzeScript : MonoBehaviour
             suicideScript.StartTimer = true;
             suicideScript.exploded = true;
             startFuzeTimer = false;
-
+            
 
         }
         if (FuzeLives == 1)
