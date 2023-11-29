@@ -16,21 +16,13 @@ public class SuicideScript : MonoBehaviour
     public bool exploded = false;
     FuzeScript fuze;
 
-    public CameraShake cameraShake;
-    public float shakeDurationOnDeath = 0.5f;
-
     PlayerCharacter PlayerCharacter;
      void Start()
     {
         fuze = GetComponent<FuzeScript>();
         PlayerCharacter = GetComponent<PlayerCharacter>();
-        cameraShake = FindObjectOfType<CameraShake>();
         respawnPoint = transform.position;
         currentTime = startingTime;
-        if (cameraShake == null)
-        {
-            Debug.LogError("CameraShake script not found on the main camera!");
-        }
     }
 
     void Update()
@@ -48,7 +40,6 @@ public class SuicideScript : MonoBehaviour
                 Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
                 fuze.goPanal.SetActive (false);
                 PlayerCharacter.speed = 1.8f;
-                
             }
             
            
@@ -60,8 +51,8 @@ public class SuicideScript : MonoBehaviour
                 Explosion();
                 countdownTillRespawn();
                 StartTimer = true;
-                exploded = true;               
-                fuze.startFuzeTimer = false;               
+                exploded = true;
+                fuze.startFuzeTimer = false;
                 if (fuze.FuzeLives == 1)
                 {
                     fuze.FuzeLives--;
@@ -81,7 +72,6 @@ public class SuicideScript : MonoBehaviour
                     fuze.FuzeLives--;
 
                 }
-                cameraShake.startShake(shakeDurationOnDeath);
             }
           
         }
