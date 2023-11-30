@@ -17,6 +17,10 @@ public class FuzeScript : MonoBehaviour
     public Image fuze1;
     public Image fuze2;
     public Image fuze3;
+    public SpriteRenderer emptyFuze1;
+    public SpriteRenderer emptyFuze2;
+    public SpriteRenderer emptyFuze3;
+    public Image MainFuze;
 
     public bool GameOver;
     PlayerCharacter character;
@@ -29,13 +33,15 @@ public class FuzeScript : MonoBehaviour
         suicideScript = GetComponent<SuicideScript>();
         character = GetComponent<PlayerCharacter>();
         cameraShake = FindObjectOfType<CameraShake>();
+        MainFuze.enabled = false;
     }
    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Start")
         {
-            if(startFuzeTimer == true)
+            MainFuze.enabled = true;
+            if (startFuzeTimer == true)
             {
                 return;
             }
@@ -45,6 +51,7 @@ public class FuzeScript : MonoBehaviour
             }
             
             FuzeTimer = StartFuze;
+
         }
         if (collision.tag == "Water")
         {
@@ -77,19 +84,24 @@ public class FuzeScript : MonoBehaviour
             suicideScript.exploded = true;
             startFuzeTimer = false;
             cameraShake.startShake(shakeDurationOnDeath);
+            MainFuze.enabled = false;
 
         }
         if (FuzeLives == 1)
         {
             fuze1.enabled = false;
+            emptyFuze1.enabled = true;
+            
         }
         if (FuzeLives == 2)
         {
             fuze2.enabled = false;
+            emptyFuze2.enabled = true;
         }
         if (FuzeLives == 3)
         {
-            fuze3.enabled = false;  
+            fuze3.enabled = false;
+            emptyFuze3.enabled = true;
         }
         
         if(FuzeLives <= 0)

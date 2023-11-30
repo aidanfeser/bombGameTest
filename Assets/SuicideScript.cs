@@ -61,6 +61,7 @@ public class SuicideScript : MonoBehaviour
                 countdownTillRespawn();
                 StartTimer = true;
                 exploded = true;
+                fuze.MainFuze.enabled = false;
                 fuze.startFuzeTimer = false;
                 if (fuze.FuzeLives == 1)
                 {
